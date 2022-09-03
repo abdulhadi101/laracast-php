@@ -1,15 +1,48 @@
 <?php
 
 
-require 'index.view.php';
-try {
-$pdo = new PDO('mysql:host=localhost;dbname=mytodo', 'root', 'Abdul101#');
-}
-catch(PDOException $e){
-die($e->getMessage());
-}
-$statement = $pdo->prepare('select * from todos');
-$statement->execute();
-$result = $statement->fetchAll(PDO::FETCH_OBJ);
-var_dump($result);
+class Task
+{
 
+    public $completed = false;
+    public $description;
+
+    public function __construct($description)
+    {
+        // A
+        $this->description = $description;
+    }
+
+    public function complete()
+    {
+        $this->completed = true;
+    }
+
+    public function isComplete()
+    {
+
+        return $this->completed;
+    }
+}
+
+
+$tasks = [
+    new Task('Second task'),
+    new Task('third task'),
+    new Task('fourth task'),
+];
+
+$tasks[0]->complete();
+var_dump($tasks);
+//dd('hello');
+// $task = [
+//     'title' => "Finish lesson",
+//     'due' => 'today',
+//     'assigned_to' => "Abdulhadi",
+//     'completed' => false,
+//     'started' => false,
+
+// ];
+
+
+require 'index.view.php';
